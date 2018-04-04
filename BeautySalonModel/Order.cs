@@ -19,6 +19,5 @@ namespace BeautySalonModel
 
         public virtual Service service { get; set; }
 
-       // public virtual Customer Customer { get; set; }
     }
 }
