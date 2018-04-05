@@ -15,6 +15,7 @@ namespace BeautySalonModel
         [Required]
         public string serviceName { get; set; }
         public string description { get; set; }
+        public int price { set; get; }
 
         [ForeignKey("serviceId")]
         public virtual List<OrderService> OrderServices { get; set; }
