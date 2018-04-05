@@ -21,6 +21,8 @@ namespace BeautySalonModel
         public virtual Client client { get; set; }
 
         public virtual Service service { get; set; }
+
         public virtual Admin admin { get; set; }
+
     }
 }
