@@ -26,42 +26,25 @@ namespace BeautySalonService.ImplementationsList
                 {
                     id = rec.id,
                     clientId = rec.clientId,
-                    serviceId=rec.serviceId,
                     adminId = rec.adminId,
                     DateCreate = rec.DateCreate.ToLongDateString(),
                     status = rec.status.ToString(),
                     number=rec.number,
                     clientName = source.Clients
-                                    .FirstOrDefault(recC => recC.id == rec.clientId)?.clientFirstName,
-                    serviceName = source.Services
-                                    .FirstOrDefault(recP => recP.id == rec.serviceId)?.serviceName
+                                    .FirstOrDefault(recC => recC.id == rec.clientId)?.clientFirstName
                 })
                 .ToList();
             return result;
         }
 
-        public void CreateOrder(OrderBindingModel model)
+        public void TakeOrderInWork(int id)
         {
-            int maxId = source.Orders.Count > 0 ? source.Orders.Max(rec => rec.id) : 0;
-            source.Orders.Add(new Order
-            {
-                id = maxId + 1,
-                clientId = model.clientId,
-                serviceId = model.serviceId,
-                clientName=model.clientName,
-                serviceName=model.serviceName,
-                DateCreate = DateTime.Now,
-                status = OrderStatus.Принят
-            });
-        }
-
-        public void TakeOrderInWork(OrderBindingModel model)
-        {
-            Order element = source.Orders.FirstOrDefault(rec => rec.id == model.id);
+            Order element = source.Orders.FirstOrDefault(rec => rec.id == id);
             if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
+            /*
             var productComponents = source.ServiceResources.Where(rec => rec.serviceId == element.serviceId);
             foreach (var productComponent in productComponents)
             {
@@ -73,31 +56,11 @@ namespace BeautySalonService.ImplementationsList
                     var resourceName = source.Resources
                                     .FirstOrDefault(rec => rec.id == productComponent.resourceId);
                     throw new Exception("Не достаточно компонента " + resourceName?.resourceName +
-                        " требуется " + productComponent.count + ", в наличии " + countOnDeliverys);
+                        " требуется " + productComponent.count + ", в наличии " + countOnDeliverys + ". Оформите заявку на доставку ресурсов.");
                 }
             }
-            foreach (var productComponent in productComponents)
-            {
-                int countOnDeliverys = productComponent.count;
-                var deliveryComponents = source.DeliveryResources
-                                            .Where(rec => rec.resourceId == productComponent.resourceId);
-                foreach (var stockComponent in deliveryComponents)
-                {
-
-                    if (stockComponent.count >= countOnDeliverys)
-                    {
-                        stockComponent.count -= countOnDeliverys;
-                        break;
-                    }
-                    else
-                    {
-                        countOnDeliverys -= stockComponent.count;
-                        stockComponent.count = 0;
-                    }
-                }
-            }
-            element.adminId = model.adminId;
-            element.status = OrderStatus.Выполняетcя;
+            */
+            element.status = OrderStatus.Ожидание;
         }
 
         public void FinishOrder(int id)
@@ -140,6 +103,7 @@ namespace BeautySalonService.ImplementationsList
                     count = model.count
                 });
             }
+            source.Resources.FirstOrDefault(res => res.id == model.resourceId).sumCount += model.count;
         }
     }
 }

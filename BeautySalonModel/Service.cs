@@ -14,13 +14,13 @@ namespace BeautySalonModel
 
         [Required]
         public string serviceName { get; set; }
+        [Required]
         public string description { get; set; }
+        [Required]
         public int price { set; get; }
 
         [ForeignKey("serviceId")]
-        public virtual List<OrderService> OrderServices { get; set; }
+        public virtual List<ServiceResource> serviceResources { get; set; }
 
-        [ForeignKey("serviceId")]
-        public virtual List<Resource> Resources { get; set; }
     }
 }

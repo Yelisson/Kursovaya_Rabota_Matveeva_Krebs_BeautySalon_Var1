@@ -9,7 +9,7 @@ namespace BeautySalonModel
     public enum OrderStatus
     {
         Принят = 0,
-        Выполняетcя = 1,
+        Ожидание = 1,
         Готов = 2,
         Оплачен = 3
     }

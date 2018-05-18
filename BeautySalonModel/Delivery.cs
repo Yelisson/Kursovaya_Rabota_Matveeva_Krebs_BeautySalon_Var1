@@ -14,6 +14,7 @@ namespace BeautySalonModel
 
         [Required]
         public DateTime Date { get; set; }
+        [Required]
         public int adminId { set; get; }
 
         [ForeignKey("deliveryId")]

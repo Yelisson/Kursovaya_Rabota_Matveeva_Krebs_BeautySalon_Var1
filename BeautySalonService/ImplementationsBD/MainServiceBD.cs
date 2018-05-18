@@ -27,14 +27,12 @@ namespace BeautySalonService.ImplementationsBD
                 {
                     id = rec.id,
                     clientId = rec.clientId,
-                    serviceId = rec.serviceId,
                     adminId = rec.adminId,
                     DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
                                 SqlFunctions.DateName("mm", rec.DateCreate) + " " +
                                 SqlFunctions.DateName("yyyy", rec.DateCreate),
                     status = rec.status.ToString(),
                     clientName = rec.client.clientFirstName,
-                    serviceName = rec.service.serviceName,
                     number = rec.number
                 })
                 .ToList();
@@ -46,61 +44,28 @@ namespace BeautySalonService.ImplementationsBD
             context.Orders.Add(new Order
             {
                 clientId = model.clientId,
-                serviceId = model.serviceId,
                 DateCreate = DateTime.Now,
                 status = OrderStatus.Принят,
                 number=model.number,
                 adminId=model.adminId,
                 clientName=model.clientName,
-                serviceName=model.serviceName
             });
             context.SaveChanges();
         }
 
-        public void TakeOrderInWork(OrderBindingModel model)
+        public void TakeOrderInWork(int id)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
                 try
                 {
 
-                    Order element = context.Orders.FirstOrDefault(rec => rec.id == model.id);
+                    Order element = context.Orders.FirstOrDefault(rec => rec.id == id);
                     if (element == null)
                     {
                         throw new Exception("Элемент не найден");
                     }
-                    var productComponents = context.ServiceResources
-                                                .Where(rec => rec.serviceId == element.serviceId);
-                    foreach (var productComponent in productComponents)
-                    {
-                        int countOnDelivers = productComponent.count;
-                        var deliverComponents = context.DeliveryResources
-                                                    .Where(rec => rec.resourceId == productComponent.resourceId);
-                        foreach (var stockComponent in deliverComponents)
-                        {
-                            if (stockComponent.count >= countOnDelivers)
-                            {
-                                stockComponent.count -= countOnDelivers;
-                                countOnDelivers = 0;
-                                context.SaveChanges();
-                                break;
-                            }
-                            else
-                            {
-                                countOnDelivers -= stockComponent.count;
-                                stockComponent.count = 0;
-                                context.SaveChanges();
-                            }
-                        }
-                        if (countOnDelivers > 0)
-                        {
-                            throw new Exception("Не достаточно компонента " +
-                                productComponent.resource.resourceName + " требуется " +
-                                productComponent.count + ", не хватает " + countOnDelivers);
-                        }
-                    }
-                    element.adminId = model.adminId;
-                    element.status = OrderStatus.Выполняетcя;
+                    element.status = OrderStatus.Ожидание;
                     context.SaveChanges();
                     transaction.Commit();
                 }
@@ -151,7 +116,9 @@ namespace BeautySalonService.ImplementationsBD
                     resourceId = model.resourceId,
                     count = model.count
                 });
+
             }
+            context.Resources.FirstOrDefault(res => res.id == model.resourceId).sumCount += model.count;
             context.SaveChanges();
         }
     }

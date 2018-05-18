@@ -11,8 +11,7 @@ namespace BeautySalonService.Interfaces
    public interface IMainService
     {
         List<OrderViewModel> GetList();
-        void CreateOrder(OrderBindingModel model);
-        void TakeOrderInWork(OrderBindingModel model);
+        void TakeOrderInWork(int id);
         void FinishOrder(int id);
         void PayOrder(int id);
         void PutComponent(DeliveryResourceBindingModel model);
