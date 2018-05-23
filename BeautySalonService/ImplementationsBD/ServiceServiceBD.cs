@@ -4,6 +4,7 @@ using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -78,7 +79,7 @@ namespace BeautySalonService.ImplementationsBD
                     Service element = context.Services.FirstOrDefault(rec => rec.serviceName == model.serviceName);
                     if (element != null)
                     {
-                        throw new Exception("Уже есть изделие с таким названием");
+                        throw new Exception("Уже есть услуга с таким названием");
                     }
                     element = new Service
                     {
@@ -86,21 +87,38 @@ namespace BeautySalonService.ImplementationsBD
                         price = model.price
                     };
                     context.Services.Add(element);
-                    context.SaveChanges();
+                    try
+                    {
+
+                        context.SaveChanges();
+
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (DbEntityValidationResult validationError in ex.EntityValidationErrors)
+                        {
+                            Console.Write("Object: " + validationError.Entry.Entity.ToString());
+                            Console.Write(" ");
+                            foreach (DbValidationError err in validationError.ValidationErrors)
+                            {
+                                Console.Write(err.ErrorMessage + " ");
+                        }
+                        }
+                    }
                     var groupComponents = model.serviceResources
                                                 .GroupBy(rec => rec.resourceId)
                                                 .Select(rec => new
                                                 {
-                                                    ComponentId = rec.Key,
-                                                    Count = rec.Sum(r => r.count)
+                                                    resourceId = rec.Key,
+                                                    count = rec.Sum(r => r.count)
                                                 });
                     foreach (var groupComponent in groupComponents)
                     {
                         context.ServiceResources.Add(new ServiceResource
                         {
                             serviceId = element.id,
-                            resourceId = groupComponent.ComponentId,
-                            count = groupComponent.Count
+                            resourceId = groupComponent.resourceId,
+                            count = groupComponent.count
                         });
                         context.SaveChanges();
                     }
@@ -124,7 +142,7 @@ namespace BeautySalonService.ImplementationsBD
                                         rec.serviceName == model.serviceName && rec.id != model.id);
                     if (element != null)
                     {
-                        throw new Exception("Уже есть изделие с таким названием");
+                        throw new Exception("Уже есть услуга с таким названием");
                     }
                     element = context.Services.FirstOrDefault(rec => rec.id == model.id);
                     if (element == null)
@@ -154,17 +172,17 @@ namespace BeautySalonService.ImplementationsBD
                                                 .GroupBy(rec => rec.resourceId)
                                                 .Select(rec => new
                                                 {
-                                                    ComponentId = rec.Key,
-                                                    Count = rec.Sum(r => r.count)
+                                                    resourceId = rec.Key,
+                                                    count = rec.Sum(r => r.count)
                                                 });
                     foreach (var groupComponent in groupComponents)
                     {
                         ServiceResource elementPC = context.ServiceResources
                                                 .FirstOrDefault(rec => rec.serviceId == model.id &&
-                                                                rec.resourceId == groupComponent.ComponentId);
+                                                                rec.resourceId == groupComponent.resourceId);
                         if (elementPC != null)
                         {
-                            elementPC.count += groupComponent.Count;
+                            elementPC.count += groupComponent.count;
                             context.SaveChanges();
                         }
                         else
@@ -172,8 +190,8 @@ namespace BeautySalonService.ImplementationsBD
                             context.ServiceResources.Add(new ServiceResource
                             {
                                 serviceId = model.id,
-                                resourceId = groupComponent.ComponentId,
-                                count = groupComponent.Count
+                                resourceId = groupComponent.resourceId,
+                                count = groupComponent.count
                             });
                             context.SaveChanges();
                         }

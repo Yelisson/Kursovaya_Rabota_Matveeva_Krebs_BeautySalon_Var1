@@ -26,7 +26,6 @@ namespace BeautySalonService.ImplementationsList
                 {
                     id = rec.id,
                     clientId = rec.clientId,
-                    adminId = rec.adminId,
                     DateCreate = rec.DateCreate.ToLongDateString(),
                     status = rec.status.ToString(),
                     number=rec.number,
@@ -44,22 +43,6 @@ namespace BeautySalonService.ImplementationsList
             {
                 throw new Exception("Элемент не найден");
             }
-            /*
-            var productComponents = source.ServiceResources.Where(rec => rec.serviceId == element.serviceId);
-            foreach (var productComponent in productComponents)
-            {
-                int countOnDeliverys = source.DeliveryResources
-                                            .Where(rec => rec.resourceId == productComponent.resourceId)
-                                            .Sum(rec => rec.count);
-                if (countOnDeliverys < productComponent.count)
-                {
-                    var resourceName = source.Resources
-                                    .FirstOrDefault(rec => rec.id == productComponent.resourceId);
-                    throw new Exception("Не достаточно компонента " + resourceName?.resourceName +
-                        " требуется " + productComponent.count + ", в наличии " + countOnDeliverys + ". Оформите заявку на доставку ресурсов.");
-                }
-            }
-            */
             element.status = OrderStatus.Ожидание;
         }
 
@@ -105,5 +88,25 @@ namespace BeautySalonService.ImplementationsList
             }
             source.Resources.FirstOrDefault(res => res.id == model.resourceId).sumCount += model.count;
         }
+        public void CreateOrder(OrderBindingModel model)
+        {
+            int maxId = 0;
+            for (int i = 0; i < source.Orders.Count; ++i)
+            {
+                if (source.Orders[i].id > maxId)
+                {
+                    maxId = source.Clients[i].id;
+                }
+            }
+            source.Orders.Add(new Order
+            {
+                id = maxId + 1,
+                clientId = model.clientId,
+                serviceId = model.serviceId,
+                DateCreate = DateTime.Now,
+                status = OrderStatus.Принят
+            });
+        }
+
     }
 }

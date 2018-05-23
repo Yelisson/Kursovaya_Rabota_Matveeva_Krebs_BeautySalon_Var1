@@ -14,7 +14,6 @@ namespace BeautySalonModel
 
         [Required]
         public string serviceName { get; set; }
-        [Required]
         public string description { get; set; }
         [Required]
         public int price { set; get; }

@@ -16,13 +16,7 @@ namespace BeautySalonModel
         public string clientFirstName { get; set; }
         [Required]
         public string clientSecondName { get; set; }
-        [Required]
         public int number { get; set; }
-        [Required]
-        public string login { get; set; }
-        [Required]
-        public string password { get; set; }
-
         [ForeignKey("clientId")]
         public virtual List<Order> Orders { get; set; }
     }

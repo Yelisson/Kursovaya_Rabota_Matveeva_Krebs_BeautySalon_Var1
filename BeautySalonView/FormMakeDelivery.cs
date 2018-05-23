@@ -25,10 +25,14 @@ namespace BeautySalonView
         private readonly IResourceService serviceC;
 
         private readonly IMainService serviceM;
+        public int Id { set { id = value; } }
+        private int delId = 1;
+        private int? id;
 
         public FormMakeDelivery(IDeliveryService serviceS, IResourceService serviceC, IMainService serviceM)
         {
             InitializeComponent();
+            
             this.serviceS = serviceS;
             this.serviceC = serviceC;
             this.serviceM = serviceM;
@@ -62,9 +66,10 @@ namespace BeautySalonView
             }
             if (string.IsNullOrEmpty(textBoxDelivery.Text))
             {
-                MessageBox.Show("Заполните поле номер доставки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Заполните поле названия доставки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            
             if (comboBoxResource.SelectedValue == null)
             {
                 MessageBox.Show("Выберите компонент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -72,17 +77,29 @@ namespace BeautySalonView
             }
             try
             {
-                serviceS.AddElement(new DeliveryBindingModel
+                if (id.HasValue)
                 {
-                    id = Convert.ToInt32(textBoxDelivery.Text)
-                });
+                    delId = id.Value;
+                    serviceS.UpdElement(new DeliveryBindingModel
+                    {
+                        id = id.Value,
+                        name = textBoxDelivery.Text
+                    });
+                }
+                else
+                {
+                    serviceS.AddElement(new DeliveryBindingModel {
+                        name = textBoxDelivery.Text
+                    });
+                }
                 
                 serviceM.PutComponent(new DeliveryResourceBindingModel
                 {
                     resourceId = Convert.ToInt32(comboBoxResource.SelectedValue),
+                    deliveryId = delId,
                     count = Convert.ToInt32(textBoxCount.Text)
                 });
-
+               
 
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

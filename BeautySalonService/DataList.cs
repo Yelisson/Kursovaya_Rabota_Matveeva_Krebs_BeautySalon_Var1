@@ -12,7 +12,6 @@ namespace BeautySalonService
         private static DataListSingleton instance;
         public List<Client> Clients { get; set; }
         public List<Resource> Resources { get; set; }
-        public List<Admin> Admins { get; set; }
         public List<Order> Orders { get; set; }
         public List<Service> Services { get; set; }
         public List<DeliveryResource> DeliveryResources { get; set; }
@@ -24,7 +23,6 @@ namespace BeautySalonService
         {
             Clients = new List<Client>();
             Resources = new List<Resource>();
-            Admins = new List<Admin>();
             Orders = new List<Order>();
             Services = new List<Service>();
             DeliveryResources = new List<DeliveryResource>();

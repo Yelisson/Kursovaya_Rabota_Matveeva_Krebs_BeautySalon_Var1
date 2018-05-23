@@ -4,6 +4,8 @@ using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,28 +71,46 @@ namespace BeautySalonService.ImplementationsBD
 
         public void AddElement(DeliveryBindingModel model)
         {
-            Delivery element = context.Deliverys.FirstOrDefault(rec => rec.id != model.id);
+            Delivery element = context.Deliverys.FirstOrDefault(rec => rec.name == model.name);
+            if (element != null)
+            {
+                throw new Exception("Уже есть доставка с таким названием");
+            }
             context.Deliverys.Add(new Delivery
             {
-                Date=model.Date
+                Date = DateTime.Now,
+                name=model.name
             });
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateException e) {
+                var sb = new StringBuilder();
+                sb.AppendLine($"DbUpdateException error details - {e?.InnerException?.InnerException?.Message}");
+                foreach (var eve in e.Entries) {
+                    sb.AppendLine($"Entity of type {eve.Entity.GetType().Name} in state {eve.State} could not be updated");
+                }
+                Console.Write(sb.ToString());
+                throw;
+            }
         }
 
         public void UpdElement(DeliveryBindingModel model)
         {
-            Delivery element = context.Deliverys.FirstOrDefault(rec =>
+            Delivery element = context.Deliverys.FirstOrDefault(rec => rec.name == model.name &&
                                         rec.id != model.id);
             if (element != null)
             {
-                throw new Exception("Уже есть склад с таким названием");
+                throw new Exception("Уже есть доставка с таким id");
             }
             element = context.Deliverys.FirstOrDefault(rec => rec.id == model.id);
             if (element == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            element.Date = model.Date;
+            element.Date = DateTime.Now;
+            element.name = model.name;
             context.SaveChanges();
         }
 

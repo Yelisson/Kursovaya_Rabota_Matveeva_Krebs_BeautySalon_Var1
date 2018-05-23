@@ -16,6 +16,5 @@ namespace BeautySalonService.ViewModels
         public int number { get; set; }
         public string status { get; set; }
         public string DateCreate { get; set; }
-        public int adminId { get; set; }
     }
 }

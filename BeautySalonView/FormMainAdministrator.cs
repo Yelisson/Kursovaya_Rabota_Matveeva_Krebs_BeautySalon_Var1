@@ -45,7 +45,6 @@ namespace BeautySalonView
                     dataGridViewOrders.Columns[1].Visible = false;
                     dataGridViewOrders.Columns[3].Visible = false;
                     dataGridViewOrders.Columns[5].Visible = false;
-                    dataGridViewOrders.Columns[8].Visible = false;
                     dataGridViewOrders.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
@@ -143,7 +142,10 @@ namespace BeautySalonView
         private void сформироватьЗаявкуToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormMakeDelivery>();
-            form.ShowDialog();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadDataResources();
+            }
         }
     }
 }

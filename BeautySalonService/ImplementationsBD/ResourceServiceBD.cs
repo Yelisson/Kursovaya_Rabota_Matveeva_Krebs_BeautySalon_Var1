@@ -59,7 +59,8 @@ namespace BeautySalonService.ImplementationsBD
             }
             context.Resources.Add(new Resource
             {
-                resourceName = model.resourceName
+                resourceName = model.resourceName,
+                price=model.price
             });
             context.SaveChanges();
         }

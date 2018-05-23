@@ -42,6 +42,7 @@ namespace BeautySalonView
                     if (view != null)
                     {
                         textBoxName.Text = view.resourceName;
+                        textBoxPrice.Text = view.price.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -79,7 +80,9 @@ namespace BeautySalonView
                     service.AddElement(new ResourceBindingModel
                     {
                         resourceName = textBoxName.Text,
-                        price = Convert.ToInt32(textBoxPrice.Text)
+                        price = Convert.ToInt32(textBoxPrice.Text),
+                        sumCount = 0,
+
                     });
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);

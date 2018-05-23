@@ -12,8 +12,7 @@ namespace BeautySalonModel
         public int deliveryId { get; set; }
         public int resourceId { get; set; }
         public int count { get; set; }
-
-
+        
         public virtual Delivery delivery { get; set; }
 
         public virtual Resource resource { get; set; }

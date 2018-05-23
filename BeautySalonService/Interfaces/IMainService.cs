@@ -15,5 +15,6 @@ namespace BeautySalonService.Interfaces
         void FinishOrder(int id);
         void PayOrder(int id);
         void PutComponent(DeliveryResourceBindingModel model);
+        void CreateOrder(OrderBindingModel model);
     }
 }

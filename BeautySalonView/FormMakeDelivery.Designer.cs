@@ -97,9 +97,9 @@
             this.labelDelivery.AutoSize = true;
             this.labelDelivery.Location = new System.Drawing.Point(12, 9);
             this.labelDelivery.Name = "labelDelivery";
-            this.labelDelivery.Size = new System.Drawing.Size(71, 13);
+            this.labelDelivery.Size = new System.Drawing.Size(60, 13);
             this.labelDelivery.TabIndex = 0;
-            this.labelDelivery.Text = "Доставка №";
+            this.labelDelivery.Text = "Доставка:";
             // 
             // textBoxDelivery
             // 

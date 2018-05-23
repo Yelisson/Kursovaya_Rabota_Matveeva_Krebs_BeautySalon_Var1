@@ -23,8 +23,6 @@ namespace BeautySalonService
 
         public virtual DbSet<Resource> Resources { get; set; }
 
-        public virtual DbSet<Admin> Admins { get; set; }
-
         public virtual DbSet<Order> Orders { get; set; }
 
         public virtual DbSet<Service> Services { get; set; }

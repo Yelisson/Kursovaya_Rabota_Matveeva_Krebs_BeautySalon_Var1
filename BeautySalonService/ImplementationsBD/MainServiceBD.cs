@@ -4,6 +4,7 @@ using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,6 @@ namespace BeautySalonService.ImplementationsBD
                 {
                     id = rec.id,
                     clientId = rec.clientId,
-                    adminId = rec.adminId,
                     DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
                                 SqlFunctions.DateName("mm", rec.DateCreate) + " " +
                                 SqlFunctions.DateName("yyyy", rec.DateCreate),
@@ -47,7 +47,6 @@ namespace BeautySalonService.ImplementationsBD
                 DateCreate = DateTime.Now,
                 status = OrderStatus.Принят,
                 number=model.number,
-                adminId=model.adminId,
                 clientName=model.clientName,
             });
             context.SaveChanges();
@@ -65,6 +64,7 @@ namespace BeautySalonService.ImplementationsBD
                     {
                         throw new Exception("Элемент не найден");
                     }
+                    
                     element.status = OrderStatus.Ожидание;
                     context.SaveChanges();
                     transaction.Commit();
@@ -119,7 +119,21 @@ namespace BeautySalonService.ImplementationsBD
 
             }
             context.Resources.FirstOrDefault(res => res.id == model.resourceId).sumCount += model.count;
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateException e)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine($"DbUpdateException error details - {e?.InnerException?.InnerException?.Message}");
+                foreach (var eve in e.Entries)
+                {
+                    sb.AppendLine($"Entity of type {eve.Entity.GetType().Name} in state {eve.State} could not be updated");
+                }
+                Console.Write(sb.ToString());
+                throw;
+            }
         }
     }
 }

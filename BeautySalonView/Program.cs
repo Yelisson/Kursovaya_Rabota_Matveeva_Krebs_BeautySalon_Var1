@@ -1,7 +1,10 @@
-﻿using BeautySalonService.ImplementationsList;
+﻿using BeautySalonService;
+using BeautySalonService.ImplementationsBD;
+using BeautySalonService.ImplementationsList;
 using BeautySalonService.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,12 +30,12 @@ namespace BeautySalonView
         public static IUnityContainer BuildUnityContainer()
         {
             var currentContainer = new UnityContainer();
-            currentContainer.RegisterType<IClientService, ClientServiceList>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IResourceService, ResourceServiceList>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IServiceService, ServiceServiceList>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IDeliveryService, DeliveryServiceList>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<IMainService, MainServiceList>(new HierarchicalLifetimeManager());
-
+            currentContainer.RegisterType<DbContext, AbstractDataBaseContext>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientService, ClientServiceBD>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IResourceService, ResourceServiceBD>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IServiceService, ServiceServiceBD>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IDeliveryService, DeliveryServiceBD>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IMainService, MainServiceBD>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

@@ -9,8 +9,8 @@ namespace BeautySalonService.BindingModels
    public class DeliveryBindingModel
     {
         public int id { get; set; }
+        public string name { get; set; }
         public DateTime Date { get; set; }
-        public int adminId { set; get; }
         public virtual List<DeliveryResourceBindingModel> deliveryResources { get; set; }
     }
 }

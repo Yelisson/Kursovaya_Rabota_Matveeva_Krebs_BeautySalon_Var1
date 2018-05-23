@@ -11,11 +11,8 @@ namespace BeautySalonModel
    public class Delivery
     {
         public int id { get; set; }
-
-        [Required]
+        public string name { get; set; }
         public DateTime Date { get; set; }
-        [Required]
-        public int adminId { set; get; }
 
         [ForeignKey("deliveryId")]
         public virtual List<DeliveryResource> deliveryResources { get; set; }

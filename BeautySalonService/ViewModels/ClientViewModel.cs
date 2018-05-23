@@ -11,5 +11,7 @@ namespace BeautySalonService.ViewModels
         public int id { get; set; }
         public string clientFirstName { get; set; }
         public string clientSecondName { get; set; }
+        public int number { get; set; }
+        public virtual List<OrderViewModel> Orders { get; set; }
     }
 }

@@ -12,8 +12,7 @@ namespace BeautySalonModel
         public int orderId { get; set; }
         public int serviceId { get; set; }
         public int count { get; set; }
-
-
+        
         public virtual Order order { get; set; }
 
         public virtual Service Service { get; set; }

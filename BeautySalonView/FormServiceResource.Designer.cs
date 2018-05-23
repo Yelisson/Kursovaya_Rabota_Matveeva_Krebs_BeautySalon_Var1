@@ -48,7 +48,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(137, 59);
+            this.buttonSave.Location = new System.Drawing.Point(138, 59);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 4;
@@ -60,8 +60,8 @@
             // 
             this.labelComponent.AutoSize = true;
             this.labelComponent.Location = new System.Drawing.Point(12, 9);
-            this.labelComponent.Name = "labelResource";
-            this.labelComponent.Size = new System.Drawing.Size(66, 13);
+            this.labelComponent.Name = "labelComponent";
+            this.labelComponent.Size = new System.Drawing.Size(46, 13);
             this.labelComponent.TabIndex = 0;
             this.labelComponent.Text = "Ресурс:";
             // 
@@ -72,7 +72,7 @@
             this.textBoxCount.Size = new System.Drawing.Size(217, 20);
             this.textBoxCount.TabIndex = 3;
             // 
-            // comboBoxComponent
+            // comboBoxResource
             // 
             this.comboBoxResource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxResource.FormattingEnabled = true;
@@ -90,7 +90,7 @@
             this.labelCount.TabIndex = 2;
             this.labelCount.Text = "Количество:";
             // 
-            // FormProductComponent
+            // FormServiceResource
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
