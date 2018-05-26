@@ -16,6 +16,8 @@ namespace BeautySalonModel
         public OrderStatus status { get; set; }
         public DateTime DateCreate { get; set; }
         public int serviceId { get; set; }
+        public string serviceName { get; set; }
         public virtual Client client { get; set; }
+        public virtual Service service { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace BeautySalonService
         public List<Service> Services { get; set; }
         public List<DeliveryResource> DeliveryResources { get; set; }
         public List<Delivery> Deliverys { get; set; }
-        public List<OrderService> OrderServices { get; set; }
         public List<ServiceResource> ServiceResources { get; set; }
 
         private DataListSingleton()
@@ -27,7 +26,6 @@ namespace BeautySalonService
             Services = new List<Service>();
             DeliveryResources = new List<DeliveryResource>();
             Deliverys = new List<Delivery>();
-            OrderServices = new List<OrderService>();
             ServiceResources = new List<ServiceResource>();
         }
 

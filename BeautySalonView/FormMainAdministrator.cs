@@ -87,44 +87,10 @@ namespace BeautySalonView
             }
         }
 
-        private void buttonPay_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewOrders.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridViewOrders.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    service.PayOrder(id);
-                    LoadDataOrders();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
         private void buttonRenew_Click(object sender, EventArgs e)
         {
             LoadDataOrders();
             LoadDataResources();
-        }
-
-        private void buttonTakeOrder_Click(object sender, EventArgs e)
-        {
-            if (dataGridViewOrders.SelectedRows.Count == 1)
-            {
-                int id = Convert.ToInt32(dataGridViewOrders.SelectedRows[0].Cells[0].Value);
-                try
-                {
-                    service.TakeOrderInWork(id);
-                    LoadDataOrders();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void ресурсыToolStripMenuItem_Click(object sender, EventArgs e)

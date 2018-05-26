@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace BeautySalonService
 {
-    [Table("AbstractDatabase")]
+   // [Table("AbstractDatabase")]
    public class AbstractDataBaseContext:DbContext
     {
-        public AbstractDataBaseContext()
+        public AbstractDataBaseContext(): base("BeautySalon")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
@@ -31,7 +31,6 @@ namespace BeautySalonService
 
         public virtual DbSet<Delivery> Deliverys { get; set; }
 
-        public virtual DbSet<OrderService> OrderServices { get; set; }
         public virtual DbSet<ServiceResource> ServiceResources { get; set; }
     }
 }

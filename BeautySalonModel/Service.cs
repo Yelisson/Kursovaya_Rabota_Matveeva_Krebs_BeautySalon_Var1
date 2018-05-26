@@ -20,6 +20,8 @@ namespace BeautySalonModel
 
         [ForeignKey("serviceId")]
         public virtual List<ServiceResource> serviceResources { get; set; }
+        [ForeignKey("serviceId")]
+        public virtual List<Order> Orders { get; set; }
 
     }
 }

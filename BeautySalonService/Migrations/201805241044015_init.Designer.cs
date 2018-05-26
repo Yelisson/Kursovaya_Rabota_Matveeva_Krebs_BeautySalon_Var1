@@ -13,7 +13,7 @@ namespace BeautySalonService.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201805221545130_init"; }
+            get { return "201805241044015_init"; }
         }
         
         string IMigrationMetadata.Source

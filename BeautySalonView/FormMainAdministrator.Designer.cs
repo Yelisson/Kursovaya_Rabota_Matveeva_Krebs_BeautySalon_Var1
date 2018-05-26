@@ -39,9 +39,7 @@
             this.dataGridViewResources = new System.Windows.Forms.DataGridView();
             this.labelOrders = new System.Windows.Forms.Label();
             this.labelResources = new System.Windows.Forms.Label();
-            this.buttonTakeOrder = new System.Windows.Forms.Button();
             this.buttonReady = new System.Windows.Forms.Button();
-            this.buttonPay = new System.Windows.Forms.Button();
             this.buttonRenew = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -138,35 +136,15 @@
             this.labelResources.TabIndex = 4;
             this.labelResources.Text = "Ресурсы";
             // 
-            // buttonTakeOrder
-            // 
-            this.buttonTakeOrder.Location = new System.Drawing.Point(607, 221);
-            this.buttonTakeOrder.Name = "buttonTakeOrder";
-            this.buttonTakeOrder.Size = new System.Drawing.Size(119, 23);
-            this.buttonTakeOrder.TabIndex = 5;
-            this.buttonTakeOrder.Text = "Заказ принят";
-            this.buttonTakeOrder.UseVisualStyleBackColor = true;
-            this.buttonTakeOrder.Click += new System.EventHandler(this.buttonTakeOrder_Click);
-            // 
             // buttonReady
             // 
-            this.buttonReady.Location = new System.Drawing.Point(607, 267);
+            this.buttonReady.Location = new System.Drawing.Point(607, 318);
             this.buttonReady.Name = "buttonReady";
             this.buttonReady.Size = new System.Drawing.Size(119, 23);
             this.buttonReady.TabIndex = 6;
             this.buttonReady.Text = "Заказ готов";
             this.buttonReady.UseVisualStyleBackColor = true;
             this.buttonReady.Click += new System.EventHandler(this.buttonReady_Click);
-            // 
-            // buttonPay
-            // 
-            this.buttonPay.Location = new System.Drawing.Point(607, 315);
-            this.buttonPay.Name = "buttonPay";
-            this.buttonPay.Size = new System.Drawing.Size(119, 23);
-            this.buttonPay.TabIndex = 7;
-            this.buttonPay.Text = "Заказ оплачен";
-            this.buttonPay.UseVisualStyleBackColor = true;
-            this.buttonPay.Click += new System.EventHandler(this.buttonPay_Click);
             // 
             // buttonRenew
             // 
@@ -184,9 +162,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(766, 402);
             this.Controls.Add(this.buttonRenew);
-            this.Controls.Add(this.buttonPay);
             this.Controls.Add(this.buttonReady);
-            this.Controls.Add(this.buttonTakeOrder);
             this.Controls.Add(this.labelResources);
             this.Controls.Add(this.labelOrders);
             this.Controls.Add(this.dataGridViewResources);
@@ -218,9 +194,7 @@
         private System.Windows.Forms.Label labelResources;
         private System.Windows.Forms.ToolStripMenuItem пополнитьРесурсыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сформироватьЗаявкуToolStripMenuItem;
-        private System.Windows.Forms.Button buttonTakeOrder;
         private System.Windows.Forms.Button buttonReady;
-        private System.Windows.Forms.Button buttonPay;
         private System.Windows.Forms.Button buttonRenew;
     }
 }

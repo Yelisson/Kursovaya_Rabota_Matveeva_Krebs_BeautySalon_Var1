@@ -8,13 +8,13 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BeautySalonService.ImplementationsBD
 {
     public class MainServiceBD:IMainService
     {
         private AbstractDataBaseContext context;
+        public static int iDClient;
 
         public MainServiceBD(AbstractDataBaseContext context)
         {
@@ -33,10 +33,49 @@ namespace BeautySalonService.ImplementationsBD
                                 SqlFunctions.DateName("yyyy", rec.DateCreate),
                     status = rec.status.ToString(),
                     clientName = rec.client.clientFirstName,
+                    serviceId = rec.serviceId,
+                    serviceName=rec.service.serviceName,
                     number = rec.number
                 })
                 .ToList();
+
             return result;
+        }
+
+        public int GetIdClient(string fn, string sn, string p)
+        {
+            List<ClientViewModel> result = context.Clients
+               //.Where(rec => string.Equals(rec.clientFirstName, fn) && string.Equals(rec.clientSecondName, sn)
+                //&& string.Equals(rec.password,p))
+                .Select(rec => new ClientViewModel
+                {
+                    id = rec.id,
+                    clientFirstName = rec.clientFirstName,
+                    clientSecondName = rec.clientSecondName,
+                    password = rec.password,
+                    mail = rec.mail,
+                    number = rec.number
+                })
+                .ToList();
+            int ind = -1;
+            foreach (var client in result) {
+                if (string.Equals(client.clientFirstName, fn) && string.Equals(client.clientSecondName, sn)){
+                    ind = client.id;
+                }
+            }
+            return ind;
+        }
+        public List<OrderViewModel> GetListForClient(int id)
+        {
+            List<OrderViewModel> orders = new List<OrderViewModel>(GetList());
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var order in orders) {
+                if (order.clientId == iDClient) {
+                    result.Add(order);
+                }
+            }
+            return result;
+
         }
 
         public void CreateOrder(OrderBindingModel model)
@@ -47,7 +86,7 @@ namespace BeautySalonService.ImplementationsBD
                 DateCreate = DateTime.Now,
                 status = OrderStatus.Принят,
                 number=model.number,
-                clientName=model.clientName,
+                serviceId=model.serviceId
             });
             context.SaveChanges();
         }
@@ -135,5 +174,6 @@ namespace BeautySalonService.ImplementationsBD
                 throw;
             }
         }
+
     }
 }

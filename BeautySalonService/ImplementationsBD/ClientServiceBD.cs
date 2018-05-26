@@ -26,7 +26,10 @@ namespace BeautySalonService.ImplementationsBD
                 {
                     id = rec.id,
                     clientFirstName = rec.clientFirstName,
-                    clientSecondName=rec.clientSecondName
+                    clientSecondName = rec.clientSecondName,
+                    password = rec.password,
+                    mail = rec.mail,
+                    number = rec.number
                 })
                 .ToList();
             return result;
@@ -41,7 +44,10 @@ namespace BeautySalonService.ImplementationsBD
                 {
                     id = element.id,
                     clientFirstName = element.clientFirstName,
-                    clientSecondName = element.clientSecondName
+                    clientSecondName = element.clientSecondName,
+                     password = element.password,
+                    mail = element.mail,
+                    number = element.number
                 };
             }
             throw new Exception("Элемент не найден");
@@ -57,7 +63,11 @@ namespace BeautySalonService.ImplementationsBD
             context.Clients.Add(new Client
             {
                 clientFirstName=model.clientFirstName,
-                clientSecondName=model.clientSecondName
+                clientSecondName=model.clientSecondName,
+                password = model.password,
+                mail = model.mail,
+                number = model.number
+
             });
             context.SaveChanges();
         }
@@ -77,6 +87,9 @@ namespace BeautySalonService.ImplementationsBD
             }
             element.clientFirstName = model.clientFirstName;
             element.clientSecondName = model.clientSecondName;
+            element.password = model.password;
+            element.mail = model.mail;
+            element.number = model.number; 
             context.SaveChanges();
         }
 

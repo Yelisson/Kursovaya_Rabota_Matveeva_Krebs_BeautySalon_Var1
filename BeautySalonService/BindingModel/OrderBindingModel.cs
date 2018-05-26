@@ -14,6 +14,7 @@ namespace BeautySalonService.BindingModels
         public int serviceId { get; set; }
         public string serviceName { get; set; }
         public int number { get; set; }
+        public string status { get; set; }
         public DateTime DateCreate { get; set; }
     }
 }

@@ -18,7 +18,39 @@ namespace BeautySalonService.ImplementationsList
         {
             source = DataListSingleton.GetInstance();
         }
-
+        public int GetIdClient(string fn, string sn, string p)
+        {
+            List<ClientViewModel> result = source.Clients
+                .Where(rec => rec.clientFirstName == fn && rec.clientSecondName == sn && rec.password == p)
+                .Select(rec => new ClientViewModel
+                {
+                    id = rec.id,
+                })
+                .ToList();
+            int ind = -1;
+            if (result.Count != 0)
+            {
+                ind = result.ElementAt(0).id;
+            }
+            return ind;
+        }
+        public List<OrderViewModel> GetListForClient(int id)
+        {
+            List<OrderViewModel> result = source.Orders
+                .Where(rec => rec.clientId == id)
+                .Select(rec => new OrderViewModel
+                {
+                    id = rec.id,
+                    clientId = rec.clientId,
+                    DateCreate = rec.DateCreate.ToLongDateString(),
+                    status = rec.status.ToString(),
+                    number = rec.number,
+                    clientName = source.Clients
+                                    .FirstOrDefault(recC => recC.id == rec.clientId)?.clientFirstName
+                })
+                .ToList();
+            return result;
+        }
         public List<OrderViewModel> GetList()
         {
             List<OrderViewModel> result = source.Orders
