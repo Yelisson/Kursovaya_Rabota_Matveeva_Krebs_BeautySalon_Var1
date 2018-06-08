@@ -48,13 +48,59 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.140.1000.523\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -98,56 +144,69 @@
     <Compile Include="BindingModel\ClientBindingModel.cs" />
     <Compile Include="BindingModel\DeliveryBindingModel.cs" />
     <Compile Include="BindingModel\DeliveryResourceBindingModel.cs" />
+    <Compile Include="BindingModel\MessageInfoBindingModel.cs" />
     <Compile Include="BindingModel\OrderBindingModel.cs" />
     <Compile Include="BindingModel\OrderServiceBindingModel.cs" />
+    <Compile Include="BindingModel\ReportBindingModel.cs" />
     <Compile Include="BindingModel\ServiceResourceBindingModel.cs" />
     <Compile Include="DataList.cs" />
     <Compile Include="ImplementationsBD\ClientServiceBD.cs" />
     <Compile Include="ImplementationsBD\DeliveryServiceBD.cs" />
     <Compile Include="ImplementationsBD\MainServiceBD.cs" />
+    <Compile Include="ImplementationsBD\MessageInfoServiceBD.cs" />
+    <Compile Include="ImplementationsBD\ReportServiceBD.cs" />
     <Compile Include="ImplementationsBD\ResourceServiceBD.cs" />
     <Compile Include="ImplementationsBD\ServiceServiceBD.cs" />
-    <Compile Include="ImplementationsList\ClientServiceList.cs" />
-    <Compile Include="ImplementationsList\DeliveryServiceList.cs" />
-    <Compile Include="ImplementationsList\MainServiceList.cs" />
-    <Compile Include="ImplementationsList\ResourceServiceList.cs" />
-    <Compile Include="ImplementationsList\ServiceServiceList.cs" />
     <Compile Include="Interfaces\IClientService.cs" />
     <Compile Include="Interfaces\IDeliveryService.cs" />
     <Compile Include="Interfaces\IMainService.cs" />
+    <Compile Include="Interfaces\IMessageInfoService.cs" />
+    <Compile Include="Interfaces\IReportService.cs" />
     <Compile Include="Interfaces\IResourceService.cs" />
     <Compile Include="Interfaces\IServiceService.cs" />
-    <Compile Include="Migrations\201805241044015_init.cs" />
-    <Compile Include="Migrations\201805241044015_init.Designer.cs">
-      <DependentUpon>201805241044015_init.cs</DependentUpon>
+    <Compile Include="Migrations\201805281207082_init.cs" />
+    <Compile Include="Migrations\201805281207082_init.Designer.cs">
+      <DependentUpon>201805281207082_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805241049053_migration.cs" />
-    <Compile Include="Migrations\201805241049053_migration.Designer.cs">
-      <DependentUpon>201805241049053_migration.cs</DependentUpon>
+    <Compile Include="Migrations\201805302022484_a.cs" />
+    <Compile Include="Migrations\201805302022484_a.Designer.cs">
+      <DependentUpon>201805302022484_a.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805241150274_newMigration.cs" />
-    <Compile Include="Migrations\201805241150274_newMigration.Designer.cs">
-      <DependentUpon>201805241150274_newMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201805302039210_b.cs" />
+    <Compile Include="Migrations\201805302039210_b.Designer.cs">
+      <DependentUpon>201805302039210_b.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806061333105_newMigration.cs" />
+    <Compile Include="Migrations\201806061333105_newMigration.Designer.cs">
+      <DependentUpon>201806061333105_newMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BindingModel\ResourceBindingModel.cs" />
     <Compile Include="BindingModel\ServiceBindingModel.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="ViewModels\AdminDeliverysModel.cs" />
+    <Compile Include="ViewModels\ClientOrdersModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\DeliveryResourceViewModel.cs" />
+    <Compile Include="ViewModels\DeliverysLoadViewModel.cs" />
     <Compile Include="ViewModels\DeliveryViewModel.cs" />
+    <Compile Include="ViewModels\MessageInfoViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ResourceViewModel.cs" />
     <Compile Include="ViewModels\ServiceResourceViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
-    <EmbeddedResource Include="Migrations\201805241044015_init.resx">
-      <DependentUpon>201805241044015_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805281207082_init.resx">
+      <DependentUpon>201805281207082_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805241049053_migration.resx">
-      <DependentUpon>201805241049053_migration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805302022484_a.resx">
+      <DependentUpon>201805302022484_a.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805241150274_newMigration.resx">
-      <DependentUpon>201805241150274_newMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805302039210_b.resx">
+      <DependentUpon>201805302039210_b.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806061333105_newMigration.resx">
+      <DependentUpon>201806061333105_newMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -157,6 +216,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -168,6 +228,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\TIMCYR.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -177,6 +238,21 @@
       <Project>{B9C111B6-60A5-444B-B745-679EEE982F62}</Project>
       <Name>BeautySalonModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

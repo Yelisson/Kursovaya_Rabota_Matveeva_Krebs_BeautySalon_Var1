@@ -38,15 +38,17 @@ namespace BeautySalonView
         {
             try
             {
-                List<OrderViewModel> list = service.GetList();
+                //List<OrderViewModel> list = service.GetList();
+                List<OrderViewModel> list = service.getMagic();
                 if (list != null)
                 {
                     dataGridViewOrders.DataSource = list;
                     dataGridViewOrders.Columns[1].Visible = false;
                     dataGridViewOrders.Columns[3].Visible = false;
-                    dataGridViewOrders.Columns[5].Visible = false;
+                    //dataGridViewOrders.Columns[5].Visible = false;
                     dataGridViewOrders.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                
             }
             catch (Exception ex)
             {
@@ -112,6 +114,24 @@ namespace BeautySalonView
             {
                 LoadDataResources();
             }
+        }
+
+        private void заявкиНаРесурсыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormDeliverysLoad>();
+            form.ShowDialog();
+        }
+
+        private void отчетПоЗаказамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClientOrders>();
+            form.ShowDialog();
+        }
+
+        private void отчетПоЗаявкамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormAdminDeliverys>();
+            form.ShowDialog();
         }
     }
 }

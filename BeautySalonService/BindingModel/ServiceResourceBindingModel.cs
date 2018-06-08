@@ -12,6 +12,7 @@ namespace BeautySalonService.BindingModel
         public int serviceId { get; set; }
         public int resourceId { get; set; }
         public int count { get; set; }
-    
-}
+        public string resourceName { get; set; }
+
+    }
 }

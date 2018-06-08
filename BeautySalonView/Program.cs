@@ -1,6 +1,5 @@
 ﻿using BeautySalonService;
 using BeautySalonService.ImplementationsBD;
-using BeautySalonService.ImplementationsList;
 using BeautySalonService.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,6 +35,7 @@ namespace BeautySalonView
             currentContainer.RegisterType<IServiceService, ServiceServiceBD>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IDeliveryService, DeliveryServiceBD>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IMainService, MainServiceBD>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IReportService, ReportServiceBD>(new HierarchicalLifetimeManager());
             return currentContainer;
         }
     }

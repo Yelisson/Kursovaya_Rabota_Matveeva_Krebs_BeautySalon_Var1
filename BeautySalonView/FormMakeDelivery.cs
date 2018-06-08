@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
@@ -75,6 +76,7 @@ namespace BeautySalonView
                 MessageBox.Show("Выберите компонент", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             try
             {
                 if (id.HasValue)
@@ -88,15 +90,17 @@ namespace BeautySalonView
                 }
                 else
                 {
-                    serviceS.AddElement(new DeliveryBindingModel {
+                    delId = serviceS.AddElement(new DeliveryBindingModel {
                         name = textBoxDelivery.Text
                     });
+
                 }
                 
                 serviceM.PutComponent(new DeliveryResourceBindingModel
                 {
                     resourceId = Convert.ToInt32(comboBoxResource.SelectedValue),
                     deliveryId = delId,
+                   
                     count = Convert.ToInt32(textBoxCount.Text)
                 });
                
@@ -109,6 +113,8 @@ namespace BeautySalonView
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+           
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

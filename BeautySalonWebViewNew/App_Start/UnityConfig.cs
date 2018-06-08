@@ -1,6 +1,5 @@
 using BeautySalonService;
 using BeautySalonService.ImplementationsBD;
-using BeautySalonService.ImplementationsList;
 using BeautySalonService.Interfaces;
 using System;
 
@@ -58,6 +57,7 @@ namespace BeautySalonWebView
             container.RegisterType<IServiceService, ServiceServiceBD>();
             container.RegisterType<IDeliveryService, DeliveryServiceBD>();
             container.RegisterType<IMainService, MainServiceBD>();
+            container.RegisterType<IReportService, ReportServiceBD>();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace BeautySalonService.BindingModels
         public string resourceName { get; set; }
         public int sumCount { get; set; }
         public int price { get; set; }
-        public int serviceId { get; set; }
+        //public int serviceId { get; set; }
         public virtual List<DeliveryResourceBindingModel> deliveryResources { get; set; }
     }
 }

@@ -11,7 +11,9 @@ namespace BeautySalonService.ViewModels
         public int id { get; set; }
         public string name { get; set; }
         public DateTime Date { get; set; }
-
+        public string DateNew { get; set; }
+        public int count { get; set; }
+        public string mail { get; set; }
         public List<DeliveryResourceViewModel> deliveryResource { get; set; }
     }
 }

@@ -12,8 +12,10 @@ namespace BeautySalonService.Interfaces
     {
         List<DeliveryViewModel> GetList();
         DeliveryViewModel GetElement(int id);
-        void AddElement(DeliveryBindingModel model);
+        int AddElement(DeliveryBindingModel model);
         void UpdElement(DeliveryBindingModel model);
         void DelElement(int id);
+
+        void SendEmail(string mailAddress, string subject, string text);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using BeautySalonService.ImplementationsBD;
-using BeautySalonService.ImplementationsList;
 using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
@@ -40,7 +39,8 @@ namespace BeautySalonWebView
 
         protected void ButtonCreateIndent_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormOrder.aspx");
+            FormCreateOrder.listServices = new List<BeautySalonService.BindingModels.ServiceBindingModel>();
+            Server.Transfer("FormCreateOrder.aspx");
         }
 
         protected void ButtonShowServices_Click(object sender, EventArgs e)
@@ -98,6 +98,13 @@ namespace BeautySalonWebView
         {
             LoadData();
             Server.Transfer("FormMain.aspx");
+        }
+
+        protected void ButtonDownloadOrders_Click(object sender, EventArgs e)
+        {
+            // отчет по заказам
+            Server.Transfer("FormReportPdf.aspx");
+
         }
     }
 }

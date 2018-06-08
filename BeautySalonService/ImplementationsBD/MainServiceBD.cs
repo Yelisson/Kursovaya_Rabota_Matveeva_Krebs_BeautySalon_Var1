@@ -4,17 +4,21 @@ using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.SqlServer;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 
 namespace BeautySalonService.ImplementationsBD
 {
-    public class MainServiceBD:IMainService
+    public class MainServiceBD : IMainService
     {
         private AbstractDataBaseContext context;
         public static int iDClient;
+        public static string mailClient;
 
         public MainServiceBD(AbstractDataBaseContext context)
         {
@@ -33,8 +37,18 @@ namespace BeautySalonService.ImplementationsBD
                                 SqlFunctions.DateName("yyyy", rec.DateCreate),
                     status = rec.status.ToString(),
                     clientName = rec.client.clientFirstName,
-                    serviceId = rec.serviceId,
-                    serviceName=rec.service.serviceName,
+                    services = rec.orderServices.Select(os => new ServiceViewModel
+                    {
+                        id = os.serviceId,
+                        serviceName = os.service.serviceName,
+                        price = os.service.price,
+                        ServiceResources = os.service.serviceResources.Select(r => new ServiceResourceViewModel
+                        {
+                            id = r.id,
+                            resourceId = r.resourceId,
+                            resourceName = r.resource.resourceName,
+                        }).ToList()
+                    }).ToList(),
                     number = rec.number
                 })
                 .ToList();
@@ -44,34 +58,49 @@ namespace BeautySalonService.ImplementationsBD
 
         public int GetIdClient(string fn, string sn, string p)
         {
-            List<ClientViewModel> result = context.Clients
-               //.Where(rec => string.Equals(rec.clientFirstName, fn) && string.Equals(rec.clientSecondName, sn)
-                //&& string.Equals(rec.password,p))
-                .Select(rec => new ClientViewModel
-                {
-                    id = rec.id,
-                    clientFirstName = rec.clientFirstName,
-                    clientSecondName = rec.clientSecondName,
-                    password = rec.password,
-                    mail = rec.mail,
-                    number = rec.number
-                })
-                .ToList();
-            int ind = -1;
-            foreach (var client in result) {
-                if (string.Equals(client.clientFirstName, fn) && string.Equals(client.clientSecondName, sn)){
-                    ind = client.id;
-                }
+            try
+            {
+                return context.Clients.First(rec => string.Equals(rec.clientFirstName, fn) && string.Equals(rec.clientSecondName, sn)
+                    && string.Equals(rec.password, p)).id;
             }
-            return ind;
+            catch (Exception x)
+            {
+                return -1;
+            }
         }
+
+        public string getClientMail(int id)
+        {
+            try
+            {
+                return context.Clients.First(rec => rec.id == id).mail;
+            }
+            catch (Exception x)
+            {
+                return null;
+            }
+        }
+
         public List<OrderViewModel> GetListForClient(int id)
         {
             List<OrderViewModel> orders = new List<OrderViewModel>(GetList());
             List<OrderViewModel> result = new List<OrderViewModel>();
-            foreach (var order in orders) {
-                if (order.clientId == iDClient) {
-                    result.Add(order);
+            foreach (var order in orders)
+            {
+                if (order.clientId == iDClient)
+                {
+                    string str = "";
+                    foreach (var ser in order.services)
+                    {
+                        str += ser.serviceName + "; ";
+                    }
+                    result.Add(new OrderViewModel
+                    {
+                        id = order.id,
+                        status = order.status,
+                        serviceList = str,
+                        DateCreate = order.DateCreate
+                    });
                 }
             }
             return result;
@@ -80,14 +109,24 @@ namespace BeautySalonService.ImplementationsBD
 
         public void CreateOrder(OrderBindingModel model)
         {
-            context.Orders.Add(new Order
+            Order order = new Order
             {
                 clientId = model.clientId,
                 DateCreate = DateTime.Now,
                 status = OrderStatus.Принят,
-                number=model.number,
-                serviceId=model.serviceId
-            });
+                number = model.number,
+            };
+            context.Orders.Add(order);
+            context.SaveChanges();
+            foreach (ServiceBindingModel ser in model.services)
+            {
+                context.OrderServices.Add(new OrderService
+                {
+                    orderId = order.id,
+                    serviceId = ser.id,
+                    count = ser.count
+                });
+            };
             context.SaveChanges();
         }
 
@@ -103,7 +142,7 @@ namespace BeautySalonService.ImplementationsBD
                     {
                         throw new Exception("Элемент не найден");
                     }
-                    
+
                     element.status = OrderStatus.Ожидание;
                     context.SaveChanges();
                     transaction.Commit();
@@ -175,5 +214,47 @@ namespace BeautySalonService.ImplementationsBD
             }
         }
 
+        public List<OrderViewModel> getMagic()
+        {
+            List<OrderViewModel> o = context.Orders
+                .Select(rec => new OrderViewModel
+                {
+                    id = rec.id,
+                    clientId = rec.clientId,
+                    DateCreate = SqlFunctions.DateName("dd", rec.DateCreate) + " " +
+                                SqlFunctions.DateName("mm", rec.DateCreate) + " " +
+                                SqlFunctions.DateName("yyyy", rec.DateCreate),
+                    status = rec.status.ToString(),
+                    clientName = rec.client.clientFirstName,
+                    //clientName = s
+                    services = rec.orderServices.Select(os => new ServiceViewModel
+                    {
+                        serviceName = os.service.serviceName
+                    }).ToList()
+                }).ToList();
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            int ind = 0;
+            foreach (var or in o)
+            {
+                String str = "";
+                foreach (var s in or.services)
+                {
+                    str += s.serviceName + "; ";
+                }
+                result.Add(new OrderViewModel
+                {
+                    id = or.id,
+                    clientName = or.clientName,
+                    DateCreate = or.DateCreate,
+                    serviceList = str,
+                    status = or.status
+
+                });
+            }
+            return result;
+        }
+
     }
+
+
 }

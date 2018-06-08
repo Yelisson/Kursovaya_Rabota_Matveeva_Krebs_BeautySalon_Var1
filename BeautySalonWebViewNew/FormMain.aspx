@@ -23,13 +23,14 @@
         <asp:GridView ID="dataGridView1" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" ShowHeaderWhenEmpty="True">
             <Columns>
                 <asp:BoundField DataField="id" HeaderText="id" SortExpression="id" />
-                <asp:BoundField DataField="clientName" HeaderText="clientName" SortExpression="clientName" />
-                <asp:BoundField DataField="serviceName" HeaderText="serviceName" SortExpression="serviceName" />           
-                <asp:BoundField DataField="status" HeaderText="status" SortExpression="status" />
+                <asp:CommandField ShowSelectButton="true" SelectText=">>" />
+                <asp:BoundField DataField="serviceList" HeaderText="serviceList" SortExpression="serviceList" />           
                 <asp:BoundField DataField="DateCreate" HeaderText="DateCreate" SortExpression="DateCreate" />
+                <asp:BoundField DataField="status" HeaderText="status" SortExpression="status" />
             </Columns>
             <SelectedRowStyle BackColor="#CCCCCC" />
         </asp:GridView>
+        <asp:Button ID="ButtonDownloadOrders" runat="server" OnClick="ButtonDownloadOrders_Click" Text="Сохранить в файл" />
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DataObjectTypeName="BeautySalonService.BindingModels.OrderBindingModel" DeleteMethod="PayOrder" InsertMethod="CreateOrder" SelectMethod="GetListForClient" TypeName="BeautySalonWebView.DataSources.MainDataSource">
             <DeleteParameters>
                 <asp:Parameter Name="id" Type="Int32" />

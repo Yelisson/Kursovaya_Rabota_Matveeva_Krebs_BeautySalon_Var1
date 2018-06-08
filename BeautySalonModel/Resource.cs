@@ -10,7 +10,7 @@ namespace BeautySalonModel
 {
    public class Resource
     {
-        public int id { set; get; }
+        public int id { get; set; }
 
         [Required]
         public string resourceName { get; set; }

@@ -4,9 +4,12 @@ using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,7 +23,52 @@ namespace BeautySalonService.ImplementationsBD
         {
             this.context = context;
         }
+        public void SendEmail(string mailAddress, string subject, string text)
+        {
+            MailMessage objMailMessage = new MailMessage();
+            SmtpClient objSmtpClient = null;
+            
+            context.MessageInfos.Add(new MessageInfo
+            {
+                MessageId = mailAddress,
+                FromMailAddress = ConfigurationManager.AppSettings["MailLogin"],
+                Subject = subject,
+                Body = text,
+                DateDelivery = DateTime.Now,
+                buyerId = null
+            });
 
+            context.SaveChanges();
+
+            try
+            {
+                objMailMessage.From = new MailAddress(ConfigurationManager.AppSettings["MailLogin"]);
+                objMailMessage.To.Add(new MailAddress(mailAddress));
+                objMailMessage.Subject = subject;
+                objMailMessage.Body = text;
+                objMailMessage.SubjectEncoding = System.Text.Encoding.UTF8;
+                objMailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+                objMailMessage.Attachments.Add(new Attachment("D:\\deliverys.xls"));
+
+                objSmtpClient = new SmtpClient("smtp.gmail.com", 587);
+                objSmtpClient.UseDefaultCredentials = false;
+                objSmtpClient.EnableSsl = true;
+                objSmtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                objSmtpClient.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["MailLogin"],
+                    ConfigurationManager.AppSettings["MailPassword"]);
+
+                objSmtpClient.Send(objMailMessage);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                objMailMessage = null;
+                objSmtpClient = null;
+            }
+        }
         public List<DeliveryViewModel> GetList()
         {
             List<DeliveryViewModel> result = context.Deliverys
@@ -32,11 +80,10 @@ namespace BeautySalonService.ImplementationsBD
                             .Where(recPC => recPC.deliveryId == rec.id)
                             .Select(recPC => new DeliveryResourceViewModel
                             {
+                                
                                 id = recPC.id,
-                                deliveryId = recPC.deliveryId,
-                                resourceId = recPC.resourceId,
-                                resourceName = recPC.resource.resourceName,
-                                count = recPC.count
+                                count = recPC.count,
+                                price = recPC.resource.price
                             })
                             .ToList()
                 })
@@ -58,32 +105,31 @@ namespace BeautySalonService.ImplementationsBD
                             .Select(recPC => new DeliveryResourceViewModel
                             {
                                 id = recPC.id,
-                                deliveryId = recPC.deliveryId,
-                                resourceId = recPC.resourceId,
-                                resourceName = recPC.resource.resourceName,
-                                count = recPC.count
-                            })
-                            .ToList()
+                                count = recPC.count,
+                                price = recPC.resource.price
+                            }).ToList()
                 };
             }
             throw new Exception("Элемент не найден");
         }
 
-        public void AddElement(DeliveryBindingModel model)
+        public int AddElement(DeliveryBindingModel model)
         {
             Delivery element = context.Deliverys.FirstOrDefault(rec => rec.name == model.name);
             if (element != null)
             {
                 throw new Exception("Уже есть доставка с таким названием");
             }
-            context.Deliverys.Add(new Delivery
+            element = new Delivery
             {
                 Date = DateTime.Now,
-                name=model.name
-            });
+                name = model.name
+            };
+            context.Deliverys.Add(element);
             try
             {
                 context.SaveChanges();
+                return element.id;
             }
             catch (DbUpdateException e) {
                 var sb = new StringBuilder();
