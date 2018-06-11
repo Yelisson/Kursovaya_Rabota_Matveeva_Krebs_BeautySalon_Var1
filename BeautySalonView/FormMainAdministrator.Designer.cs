@@ -36,11 +36,14 @@
             this.пополнитьРесурсыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сформироватьЗаявкуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.получитьОтчетToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.заявкиНаРесурсыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетПоЗаказамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewResources = new System.Windows.Forms.DataGridView();
             this.labelOrders = new System.Windows.Forms.Label();
             this.labelResources = new System.Windows.Forms.Label();
             this.buttonReady = new System.Windows.Forms.Button();
             this.buttonRenew = new System.Windows.Forms.Button();
+            this.отчетПоЗаявкамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).BeginInit();
@@ -106,9 +109,27 @@
             // 
             // получитьОтчетToolStripMenuItem
             // 
+            this.получитьОтчетToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.заявкиНаРесурсыToolStripMenuItem,
+            this.отчетПоЗаказамToolStripMenuItem,
+            this.отчетПоЗаявкамToolStripMenuItem});
             this.получитьОтчетToolStripMenuItem.Name = "получитьОтчетToolStripMenuItem";
             this.получитьОтчетToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
             this.получитьОтчетToolStripMenuItem.Text = "Получить отчет";
+            // 
+            // заявкиНаРесурсыToolStripMenuItem
+            // 
+            this.заявкиНаРесурсыToolStripMenuItem.Name = "заявкиНаРесурсыToolStripMenuItem";
+            this.заявкиНаРесурсыToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.заявкиНаРесурсыToolStripMenuItem.Text = "Заявки на ресурсы";
+            this.заявкиНаРесурсыToolStripMenuItem.Click += new System.EventHandler(this.заявкиНаРесурсыToolStripMenuItem_Click);
+            // 
+            // отчетПоЗаказамToolStripMenuItem
+            // 
+            this.отчетПоЗаказамToolStripMenuItem.Name = "отчетПоЗаказамToolStripMenuItem";
+            this.отчетПоЗаказамToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.отчетПоЗаказамToolStripMenuItem.Text = "Отчет по заказам";
+            this.отчетПоЗаказамToolStripMenuItem.Click += new System.EventHandler(this.отчетПоЗаказамToolStripMenuItem_Click);
             // 
             // dataGridViewResources
             // 
@@ -156,6 +177,13 @@
             this.buttonRenew.UseVisualStyleBackColor = true;
             this.buttonRenew.Click += new System.EventHandler(this.buttonRenew_Click);
             // 
+            // отчетПоЗаявкамToolStripMenuItem
+            // 
+            this.отчетПоЗаявкамToolStripMenuItem.Name = "отчетПоЗаявкамToolStripMenuItem";
+            this.отчетПоЗаявкамToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.отчетПоЗаявкамToolStripMenuItem.Text = "Отчет по заявкам";
+            this.отчетПоЗаявкамToolStripMenuItem.Click += new System.EventHandler(this.отчетПоЗаявкамToolStripMenuItem_Click);
+            // 
             // FormMainAdministrator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,5 +224,8 @@
         private System.Windows.Forms.ToolStripMenuItem сформироватьЗаявкуToolStripMenuItem;
         private System.Windows.Forms.Button buttonReady;
         private System.Windows.Forms.Button buttonRenew;
+        private System.Windows.Forms.ToolStripMenuItem заявкиНаРесурсыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчетПоЗаказамToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчетПоЗаявкамToolStripMenuItem;
     }
 }

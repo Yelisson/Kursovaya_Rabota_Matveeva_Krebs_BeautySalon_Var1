@@ -1,14 +1,9 @@
 ﻿using BeautySalonService.BindingModels;
-using BeautySalonService.ImplementationsBD;
-using BeautySalonService.ImplementationsList;
 using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using Unity;
 
 namespace BeautySalonWebView
@@ -24,6 +19,7 @@ namespace BeautySalonWebView
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             try
             {
                 if (!Page.IsPostBack)
@@ -82,11 +78,6 @@ namespace BeautySalonWebView
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Заполните поле Количество');</script>");
                 return;
             }
-            //if (DropDownListClient.SelectedValue == null)
-            //{
-            //    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите клиента');</script>");
-            //    return;
-            //}
             if (DropDownListService.SelectedValue == null)
             {
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Выберите услугу');</script>");
@@ -94,14 +85,19 @@ namespace BeautySalonWebView
             }
             try
             {
-                serviceM.CreateOrder(new OrderBindingModel
-                {
-                    //clientId = Convert.ToInt32(DropDownListClient.SelectedValue),
-                     clientId = MainServiceBD.iDClient,
-                serviceId = Convert.ToInt32(DropDownListService.SelectedValue),
+                FormCreateOrder.listServices.Add(new ServiceBindingModel {
+
+                    //serviceName=DropDownListService.SelectedValue,//так изначально работало, потом сломалось непонятно из-за чего
+
+                    //serviceName= DropDownListService.SelectedItem.ToString(),//так должно быть, но всё равно не работает
+
+                    id = serviceS.GetElement(Convert.ToInt32(DropDownListService.SelectedValue)).id,
+                    price = serviceS.GetElement(Convert.ToInt32(DropDownListService.SelectedValue)).price,
+                    count = Convert.ToInt32(TextBoxCount.Text),
+                    serviceName = serviceS.GetElement(Convert.ToInt32(DropDownListService.SelectedValue)).serviceName,
+                    serviceResources = serviceS.GetElementBM(Convert.ToInt32(DropDownListService.SelectedValue)).serviceResources
                 });
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Сохранение прошло успешно');</script>");
-                Server.Transfer("FormMain.aspx");
+                Server.Transfer("FormCreateOrder.aspx");
             }
             catch (Exception ex)
             {
@@ -111,7 +107,7 @@ namespace BeautySalonWebView
 
         protected void ButtonCancel_Click(object sender, EventArgs e)
         {
-            Server.Transfer("FormMain.aspx");
+            Server.Transfer("FormCreateOrder.aspx");
         }
     }
 }

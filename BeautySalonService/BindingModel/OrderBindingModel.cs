@@ -11,10 +11,9 @@ namespace BeautySalonService.BindingModels
         public int id { get; set; }
         public int clientId { get; set; }
         public string clientName { get; set; }
-        public int serviceId { get; set; }
-        public string serviceName { get; set; }
         public int number { get; set; }
         public string status { get; set; }
         public DateTime DateCreate { get; set; }
+        public List<ServiceBindingModel> services { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿
 using BeautySalonService.BindingModels;
 using BeautySalonService.ImplementationsBD;
-using BeautySalonService.ImplementationsList;
 using BeautySalonService.Interfaces;
 using BeautySalonService.ViewModels;
 using System;
@@ -60,20 +59,6 @@ namespace BeautySalonWebView
             }
             try
             {
-                if (Int32.TryParse((string)Session["id"], out id))
-                {
-                    service.UpdElement(new ClientBindingModel
-                    {
-                        id = id,
-                        clientFirstName = textBoxFirstName.Text,
-                        clientSecondName= textBoxSecondName.Text,
-                        number=Convert.ToInt32(textBoxNumber.Text),
-                        mail = TextBoxMail.Text,
-                        password = TextBoxPassword.Text
-                    });
-                }
-                else
-                {
                     service.AddElement(new ClientBindingModel
                     {
                         clientFirstName = textBoxFirstName.Text,
@@ -83,8 +68,8 @@ namespace BeautySalonWebView
                        password = TextBoxPassword.Text
 
                     });
-                }
                 MainServiceBD.iDClient = serviceM.GetIdClient(textBoxFirstName.Text, textBoxSecondName.Text, TextBoxPassword.Text);
+                MainServiceBD.mailClient = serviceM.getClientMail(MainServiceBD.iDClient);
             }
             catch (Exception ex)
             {

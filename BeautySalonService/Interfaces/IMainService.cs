@@ -18,5 +18,7 @@ namespace BeautySalonService.Interfaces
         void PayOrder(int id);
         void PutComponent(DeliveryResourceBindingModel model);
         void CreateOrder(OrderBindingModel model);
+        List<OrderViewModel> getMagic();
+        string getClientMail(int id);
     }
 }

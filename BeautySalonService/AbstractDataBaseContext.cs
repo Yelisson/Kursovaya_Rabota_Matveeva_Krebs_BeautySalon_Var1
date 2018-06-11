@@ -1,21 +1,14 @@
 ﻿using BeautySalonModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BeautySalonService
 {
-   // [Table("AbstractDatabase")]
    public class AbstractDataBaseContext:DbContext
     {
         public AbstractDataBaseContext(): base("BeautySalon")
         {
-            Configuration.ProxyCreationEnabled = false;
-            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
             var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 
@@ -32,5 +25,8 @@ namespace BeautySalonService
         public virtual DbSet<Delivery> Deliverys { get; set; }
 
         public virtual DbSet<ServiceResource> ServiceResources { get; set; }
+
+        public virtual DbSet<OrderService> OrderServices { get; set; }
+        public virtual DbSet<MessageInfo> MessageInfos { get; set; }
     }
 }

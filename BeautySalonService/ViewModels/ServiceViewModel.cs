@@ -13,5 +13,7 @@ namespace BeautySalonService.ViewModels
         public int price { get; set; }
         public List<ServiceResourceViewModel> ServiceResources { get; set; }
 
+       
+
     }
 }

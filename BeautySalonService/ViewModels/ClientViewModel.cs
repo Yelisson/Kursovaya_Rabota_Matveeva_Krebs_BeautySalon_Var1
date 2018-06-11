@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace BeautySalonService.ViewModels
 {
@@ -15,5 +16,7 @@ namespace BeautySalonService.ViewModels
         public string mail { get; set; }
         public string password { get; set; }
         public virtual List<OrderViewModel> Orders { get; set; }
+        [DataMember]
+        public List<MessageInfoViewModel> messages { get; set; }
     }
 }

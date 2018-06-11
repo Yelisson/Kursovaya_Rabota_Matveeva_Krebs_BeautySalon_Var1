@@ -12,11 +12,13 @@
     <div>
     
         <asp:Button ID="ButtonUpd" runat="server" Text="Обновить" OnClick="ButtonUpd_Click" />
+        <asp:Button ID="ButtonDownloadPrice" runat="server" OnClick="ButtonDownloadPrice_Click" Text="Скачать" />
+        <asp:Button ID="ButtonMail" runat="server" OnClick="ButtonMail_Click" Text="Отправить на почту" />
         <asp:GridView ID="dataGridView" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource1" ShowHeaderWhenEmpty="True">
             <Columns>
                 <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="Id" />                
                 <asp:CommandField ShowSelectButton="true" SelectText=">>" />
-                <asp:BoundField DataField="ServiceName" HeaderText="SrviceName" SortExpression="ServiceName" />
+                <asp:BoundField DataField="ServiceName" HeaderText="ServiceName" SortExpression="ServiceName" />
                 <asp:BoundField DataField="Price" HeaderText="Price" SortExpression="Price" />
             </Columns>
             <SelectedRowStyle BackColor="#CCCCCC" />
@@ -24,7 +26,7 @@
         <br />
         <br />
         <asp:Button ID="ButtonBack" runat="server" Text="Вернуться" OnClick="ButtonBack_Click" />
-        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetList" TypeName="BeautySalonWebView.DataSources.ServiceDataSource"></asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetListAvailableForClient" TypeName="BeautySalonWebView.DataSources.ServiceDataSource"></asp:ObjectDataSource>
     
     </div>
     </form>
